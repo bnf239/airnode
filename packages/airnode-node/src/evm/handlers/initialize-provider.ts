@@ -114,7 +114,6 @@ export async function initializeProvider(
     requests: {
       ...state3.requests,
       apiCalls: verifiedApiCallsForRrpTriggers,
-      withdrawals: state4.requests.withdrawals,
     },
   });
 
