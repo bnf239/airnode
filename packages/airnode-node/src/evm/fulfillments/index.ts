@@ -8,11 +8,10 @@ import {
   EVMProviderState,
   ProviderState,
   RequestType,
-  TransactionOptions,
-  LogsErrorData,
   GroupedRequests,
   ApiCall,
   Withdrawal,
+  SubmitRequest,
 } from '../../types';
 import { AirnodeRrpFactory, AirnodeRrp } from '../contracts';
 import * as verification from '../verification';
@@ -46,11 +45,7 @@ function submitRequests<T>(
   state: ProviderState<EVMProviderState>,
   requests: Request<T>[],
   type: RequestType,
-  submitFunction: (
-    airnodeRrp: AirnodeRrp,
-    request: Request<T>,
-    options: TransactionOptions
-  ) => Promise<LogsErrorData<Request<T>>>,
+  submitFunction: SubmitRequest<T>,
   contract: AirnodeRrp
 ): OrderedRequest<T>[] {
   return requests.map((request) => {

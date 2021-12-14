@@ -179,6 +179,7 @@ async function submitFail(
 // =================================================================
 // Main functions
 // =================================================================
+// TODO: Use SubmitRequest as a function type once moved to arrow functions
 export async function submitApiCall(
   airnodeRrp: AirnodeRrp,
   request: Request<ApiCall>,

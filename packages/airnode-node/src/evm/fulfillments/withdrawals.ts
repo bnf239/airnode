@@ -8,6 +8,7 @@ import { DEFAULT_RETRY_TIMEOUT_MS } from '../../constants';
 import { Request, LogsErrorData, RequestStatus, TransactionOptions, Withdrawal } from '../../types';
 import { AirnodeRrp } from '../contracts';
 
+// TODO: Use SubmitRequest as a function type once moved to arrow functions
 export async function submitWithdrawal(
   airnodeRrp: AirnodeRrp,
   request: Request<Withdrawal>,
