@@ -23,7 +23,7 @@ interface OrderedRequest<T> {
   readonly makeRequest: () => Promise<Request<T>>;
 }
 
-function baseLogOptions(state: ProviderState<EVMProviderState>) {
+function getBaseLogOptions(state: ProviderState<EVMProviderState>) {
   const { chainId, chainType, name: providerName } = state.settings;
   const { coordinatorId } = state;
 
@@ -34,7 +34,7 @@ function baseLogOptions(state: ProviderState<EVMProviderState>) {
   };
 }
 
-function transactionOptions(state: ProviderState<EVMProviderState>) {
+function getTransactionOptions(state: ProviderState<EVMProviderState>) {
   return {
     gasTarget: state.gasTarget!,
     masterHDNode: state.masterHDNode,
@@ -56,8 +56,8 @@ function submitRequests<T>(
   return requests.map((request) => {
     const makeRequest = async () => {
       // NOTE: This err was not actually handled anywhere before, what should we do with it?
-      const [logs, _err, submittedRequest] = await submitFunction(contract, request, transactionOptions(state));
-      logger.logPending(logs, baseLogOptions(state));
+      const [logs, _err, submittedRequest] = await submitFunction(contract, request, getTransactionOptions(state));
+      logger.logPending(logs, getBaseLogOptions(state));
 
       return submittedRequest || request;
     };
@@ -98,7 +98,7 @@ async function submitSponsorRequestsSequentially(
     requests.withdrawals,
     state.masterHDNode
   );
-  logger.logPending(verifyWithdrawalLogs, baseLogOptions(state));
+  logger.logPending(verifyWithdrawalLogs, getBaseLogOptions(state));
 
   // Submit transactions for withdrawals
   const submittedWithdrawals = submitRequests(
@@ -121,7 +121,7 @@ async function submitSponsorRequestsSequentially(
     if (submittedRequest.fulfillment?.hash) {
       logger.info(
         `Transaction:${submittedRequest.fulfillment.hash} submitted for Request:${submittedRequest.id}`,
-        baseLogOptions(state)
+        getBaseLogOptions(state)
       );
     }
 
