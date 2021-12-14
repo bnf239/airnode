@@ -202,5 +202,5 @@ export async function submitApiCall(
   }
 
   // Should not throw
-  return await testAndSubmitFulfill(airnodeRrp, request, options);
+  return testAndSubmitFulfill(airnodeRrp, request, options);
 }
