@@ -69,7 +69,7 @@ function submitRequests<T>(
  * Sponsor requests are performed from the sponsor wallet. Each transaction has a fixed nonce and blochchain rejects out
  * of order transactions.
  *
- * This function makes all the sponsor requests sequentially (ordered by transaction nonce increasingly).
+ * This function performs the requests of a particular sponsor sequentially, ordered by transaction nonce increasingly.
  *
  * There is a concept of batched requests, but that doesn't work with transactions. See:
  * https://github.com/ethers-io/ethers.js/issues/892#issuecomment-828897859
