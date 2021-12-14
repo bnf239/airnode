@@ -120,13 +120,13 @@ async function testAndSubmitFulfill(
         ? `${RequestErrorMessage.FulfillTransactionFailed} with error: ${testErr.message}`
         : RequestErrorMessage.FulfillTransactionFailed,
     };
-    const [submitLogs, submitErr, submitedRequest] = await submitFail(
+    const [submitLogs, submitErr, submittedRequest] = await submitFail(
       airnodeRrp,
       updatedRequest,
       testErr?.message ?? decodeRevertString(testData?.callData || '0x'),
       options
     );
-    return [[...testLogs, ...submitLogs], submitErr, submitedRequest];
+    return [[...testLogs, ...submitLogs], submitErr, submittedRequest];
   }
 
   // We expect the transaction to be successful if submitted
