@@ -41,7 +41,7 @@ function getTransactionOptions(state: ProviderState<EVMProviderState>) {
   };
 }
 
-function submitRequests<T>(
+function prepareRequestSubmissions<T>(
   state: ProviderState<EVMProviderState>,
   requests: Request<T>[],
   type: RequestType,
@@ -86,7 +86,13 @@ async function submitSponsorRequestsSequentially(
   const contract = AirnodeRrpFactory.connect(AirnodeRrp, signer);
 
   // Submit transactions for API calls
-  const submittedApiCalls = submitRequests(state, requests.apiCalls, RequestType.ApiCall, submitApiCall, contract);
+  const preparedApiCallSubmissions = prepareRequestSubmissions(
+    state,
+    requests.apiCalls,
+    RequestType.ApiCall,
+    submitApiCall,
+    contract
+  );
 
   // Verify sponsor wallets for withdrawals
   const [verifyWithdrawalLogs, verifiedWithdrawals] = verification.verifySponsorWallets(
@@ -96,7 +102,7 @@ async function submitSponsorRequestsSequentially(
   logger.logPending(verifyWithdrawalLogs, getBaseLogOptions(state));
 
   // Submit transactions for withdrawals
-  const submittedWithdrawals = submitRequests(
+  const preparedWithdrawalSubmissions = prepareRequestSubmissions(
     state,
     verifiedWithdrawals,
     RequestType.Withdrawal,
@@ -104,7 +110,7 @@ async function submitSponsorRequestsSequentially(
     contract
   );
 
-  const allRequests = [...submittedApiCalls, ...submittedWithdrawals];
+  const allRequests = [...preparedApiCallSubmissions, ...preparedWithdrawalSubmissions];
   // Sort by the nonce value increasingly
   allRequests.sort((a, b) => a.nonce - b.nonce);
 
