@@ -21,6 +21,14 @@
         "endpointName": {
           "__type": "string"
         },
+        "__optional": {
+          "summary": {},
+          "description": {},
+          "externalDocs": {},
+          "testable": {
+            "__type": "boolean"
+          }
+        },
         "__conditions": [
           {
             "__if": {
