@@ -1,6 +1,6 @@
 import isNil from 'lodash/isNil';
 import { ethers } from 'ethers';
-import { applyFulfillment } from './requests';
+import { applyTransactionResult } from './requests';
 import { go } from '../../utils/promise-utils';
 import * as logger from '../../logger';
 import * as wallet from '../wallet';
@@ -114,5 +114,5 @@ export async function submitWithdrawal(
     return [logs, withdrawalErr, null];
   }
 
-  return [[estimateLog, noticeLog], null, applyFulfillment(request, withdrawalRes)];
+  return [[estimateLog, noticeLog], null, applyTransactionResult(request, withdrawalRes)];
 }

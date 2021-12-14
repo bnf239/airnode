@@ -1,6 +1,6 @@
 import isNil from 'lodash/isNil';
 import { ethers } from 'ethers';
-import { applyFulfillment } from './requests';
+import { applyTransactionResult } from './requests';
 import { go } from '../../utils/promise-utils';
 import * as logger from '../../logger';
 import * as requests from '../../requests';
@@ -96,7 +96,7 @@ async function submitFulfill(
     );
     return [[noticeLog, errorLog], err, null];
   }
-  return [[noticeLog], null, applyFulfillment(request, res)];
+  return [[noticeLog], null, applyTransactionResult(request, res)];
 }
 
 async function testAndSubmitFulfill(
@@ -173,7 +173,7 @@ async function submitFail(
     const errorLog = logger.pend('ERROR', `Error submitting API call fail transaction for Request:${request.id}`, err);
     return [[noticeLog, errorLog], err, null];
   }
-  return [[noticeLog], null, applyFulfillment(request, res)];
+  return [[noticeLog], null, applyTransactionResult(request, res)];
 }
 
 // =================================================================
