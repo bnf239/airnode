@@ -33,21 +33,21 @@
   "triggers": {
     "rrp": [
       {
-        "endpointId": "0xd9e8c9bcc8960df5f954c0817757d2f7f9601bd638ea2f94e890ae5481681153",
-        "oisTitle": "CoinGecko basic request",
-        "endpointName": "coinMarketData"
+        "endpointId": "0xd859070bcb4144309608520d026292d9",
+        "oisTitle": "myrequest",
+        "endpointName": "extracredit"
       }
     ]
   },
   "ois": [
     {
       "oisFormat": "1.0.0",
-      "title": "CoinGecko basic request",
+      "title": "myrequest",
       "version": "1.0.0",
       "apiSpecifications": {
         "servers": [
           {
-            "url": "https://api.coingecko.com/api/v3"
+            "url": "https://rinkeby.infura.io/v3/d859070bcb4144309608520d026292d9"
           }
         ],
         "paths": {
@@ -96,7 +96,7 @@
           "name": "coinMarketData",
           "operation": {
             "method": "get",
-            "path": "/coins/{id}"
+            "path": "/v3/{id}"
           },
           "fixedOperationParameters": [
             {
@@ -149,7 +149,7 @@
             },
             {
               "name": "_path",
-              "fixed": "market_data.current_price.usd"
+              "fixed": "myrequest.result.number"
             },
             {
               "name": "_times",
@@ -158,7 +158,7 @@
           ],
           "parameters": [
             {
-              "name": "coinId",
+              "name": "result",
               "operationParameter": {
                 "in": "path",
                 "name": "id"
